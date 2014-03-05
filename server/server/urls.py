@@ -8,7 +8,7 @@ admin.autodiscover()
 router = routers.DefaultRouter()
 router.register(r'building', views.BuildingViewSet)
 router.register(r'community', views.CommunityViewSet)
-router.register(r'machine', views.MachineViewSet)
+router.register(r'side', views.SideViewSet)
 
 urlpatterns = patterns('',
     # Examples:
