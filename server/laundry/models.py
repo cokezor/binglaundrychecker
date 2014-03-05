@@ -24,7 +24,7 @@ class Building(models.Model):
 class Community(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
-	laundryRooms = models.ManyToManyField(Building)
+	buildings = models.ManyToManyField(Building)
 
 	def __str__(self):
 		return self.name
