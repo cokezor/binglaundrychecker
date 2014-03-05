@@ -25,6 +25,11 @@ class SideViewSet(viewsets.ModelViewSet):
 	queryset = Side.objects.all()
 	serializer_class = SideSerializer
 
+def get_laundry_status(request, name):
+	name = name.replace("_", " ")
+	building = Building.objects.get(name=name)
+	sides = building.sides.all()
+
 def get_buildings(request, name):
 	name = name.replace("_", " ")
 	community = Community.objects.get(name=name)
