@@ -28,6 +28,6 @@ class SideViewSet(viewsets.ModelViewSet):
 	queryset = Side.objects.all()
 	serializer_class = SideSerializer
 
-def machine_status(request, building):
+def machine_status(request, name):
 	if request.method == 'GET':
 
