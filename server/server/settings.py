@@ -112,3 +112,4 @@ REST_FRAMEWORK = {
 
 ROOMSTATUS_BASE_URL = 'http://binghamton-asi.esuds.net/RoomStatus/showRoomStatus.i?locationId='
 ESUDS_BING_URL = 'http://binghamton-asi.esuds.net/RoomStatus/showRoomStatus.i?locationId=6788'
+MACHINESTATUS_BASE_URL = 'http://binghamton-asi.esuds.net/RoomStatus/machineStatus.i?bottomLocationId='
