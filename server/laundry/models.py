@@ -1,8 +1,9 @@
 from django.db import models
 
-class Side(models.Model):
+class Community(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
+
 	def __str__(self):
 		return self.name
 
@@ -12,7 +13,7 @@ class Side(models.Model):
 class Building(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
-	sides = models.ManyToManyField(Side)
+	community = models.ForeignKey(Community, null=True)
 
 	def __str__(self):
 		return self.name
@@ -20,11 +21,19 @@ class Building(models.Model):
 	class Meta:
 		ordering = ('name',)
 
-class Community(models.Model):
+class Side(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
-	buildings = models.ManyToManyField(Building)
+	building = models.ForeignKey(Building, null=True)
 
+	dryerTotal = models.IntegerField(blank=True)
+	dryerAvail = models.IntegerField(blank=True)
+	dryerTimes = models.CommaSeparatedIntegerField(max_length=20)
+
+	washerTotal = models.IntegerField(blank=True)
+	washerAvail = models.IntegerField(blank=True)
+	washerTimes = models.CommaSeparatedIntegerField(max_length=20)
+	
 	def __str__(self):
 		return self.name
 
