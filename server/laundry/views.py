@@ -7,6 +7,9 @@ from laundry.serializers import BuildingSerializer, CommunitySerializer, SideSer
 from laundry.models import Community, Side, Building
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
+from django.conf import settings
+
+MACHINESTATUS_BASE_URL  = getattr(settings, "MACHINESTATUS_BASE_URL", None)
 
 class JSONResponse(HttpResponse):
 	"""
@@ -17,10 +20,6 @@ class JSONResponse(HttpResponse):
 		kwargs['content_type'] = 'application/json'
 		super(JSONResponse, self).__init__(content, **kwargs)
 
-class CommunityViewSet(viewsets.ModelViewSet):
-	queryset = Community.objects.all()
-	serializer_class = CommunitySerializer
-
 class SideViewSet(viewsets.ModelViewSet):
 	queryset = Side.objects.all()
 	serializer_class = SideSerializer
@@ -28,13 +27,18 @@ class SideViewSet(viewsets.ModelViewSet):
 def get_laundry_status(request, name):
 	name = name.replace("_", " ")
 	building = Building.objects.get(name=name)
-	sides = building.sides.all()
+	sides = building.side_set.all()
 
 def get_buildings(request, name):
 	name = name.replace("_", " ")
 	community = Community.objects.get(name=name)
-	buildings = community.buildings.all()
+	buildings = community.building_set.all()
 	serializer = BuildingSerializer(buildings, many=True)
+	return JSONResponse(serializer.data)
+
+def get_communities(request):
+	communities = Community.objects.all()
+	serializer = CommunitySerializer(communities, many=True)
 	return JSONResponse(serializer.data)
 
 def machine_status(request, name):

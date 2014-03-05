@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from laundry.models import Building, Community, Side
 
-class CommunitySerializer(serializers.HyperlinkedModelSerializer):
+class CommunitySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Community
-		fields = ('name', 'buildings')
+		fields = ('name',)
 
 class SideSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
