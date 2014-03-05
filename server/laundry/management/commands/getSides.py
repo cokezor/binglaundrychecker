@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 import requests
 import re
 from lxml import html
-from laundry.models import Community, Building
+from laundry.models import Building, Side
 from django.conf import settings
 
 ROOMSTATUS_BASE_URL = getattr(settings, "ROOMSTATUS_BASE_URL", None)
@@ -10,15 +10,15 @@ ROOMSTATUS_BASE_URL = getattr(settings, "ROOMSTATUS_BASE_URL", None)
 #custom command that iterates through all of the communities and generates their buildings class Command(BaseCommand):
 class Command(BaseCommand):
 	def handle(self, *args, **options):
-		communities = Community.objects.all()
+		buildings = Building.objects.all()
 
-		for community in communities:
+		for building in buildings:
 			#load the page with the locationId
-			page = requests.get(ROOMSTATUS_BASE_URL + community.locationId)
+			page = requests.get(ROOMSTATUS_BASE_URL + building.locationId)
 
 			#parse the html so we can use xpath
 			tree = html.fromstring(page.text)
-			laundry_links = tree.xpath('//span[@class="dormlinks"]/a')
+			laundry_links = tree.xpath('//span[@class="laundrylinks"]/a')
 
 			#regex for matching the location id of each building
 			#example: 'showRoomStatus.i?locationId=1008750'
@@ -26,5 +26,6 @@ class Command(BaseCommand):
 
 			for item in laundry_links:
 				locationId = regex.search(item.attrib['href']).group()
-				building, created = Building.objects.get_or_create(name=item.text, locationId=locationId)
-				community.buildings.add(building)
+				side, created = Side.objects.get_or_create(name=item.text, locationId=locationId)
+				if created:
+					building.sides.add(side)
