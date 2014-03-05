@@ -3,12 +3,15 @@ import requests
 import re
 from lxml import html
 from laundry.models import Community
+from django.conf import settings
+
+ESUDS_BING_URL = getattr(settings, "ESUDS_BING_URL", None)
+
 #custom command to scrape the communitys on a weekly(?) basis
 class Command(BaseCommand):
 	def handle(self, *args, **options):
-		communities = Community.objects.all()
 		#load the page
-		page = requests.get('http://binghamton-asi.esuds.net/RoomStatus/showRoomStatus.i?locationId=6788')
+		page = requests.get(ESUDS_BING_URL)
 
 		#parse the html so we can use xpath
 		tree = html.fromstring(page.text)
