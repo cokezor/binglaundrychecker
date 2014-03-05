@@ -21,7 +21,7 @@ class Machine(models.Model):
 class Building(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
-	machines = models.ManyToManyField(Machine)
+	machines = models.ManyToManyField(Side)
 
 	def __str__(self):
 		return self.name
