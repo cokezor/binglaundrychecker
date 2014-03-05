@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from laundry.models import Building, LaundryRoom, Machine
+from laundry.models import Building, Community, Machine
 
 class BuildingSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Building
 		fields = ('name',)
 
-class LaundryRoomSerializer(serializers.HyperlinkedModelSerializer):
+class CommunitySerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = LaundryRoom
+		model = Community
 		fields = ('name', 'machines')
 
 class MachineSerializer(serializers.HyperlinkedModelSerializer):

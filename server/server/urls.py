@@ -7,7 +7,7 @@ admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r'building', views.BuildingViewSet)
-router.register(r'laundry-room', views.LaundryRoomViewSet)
+router.register(r'community', views.CommunityViewSet)
 router.register(r'machine', views.MachineViewSet)
 
 urlpatterns = patterns('',

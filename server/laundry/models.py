@@ -10,7 +10,7 @@ class Machine(models.Model):
 	class Meta:
 		ordering = ('name',)
 
-class LaundryRoom(models.Model):
+class Building(models.Model):
 	name = models.CharField(max_length=40)
 	machines = models.ManyToManyField(Machine)
 
@@ -20,10 +20,10 @@ class LaundryRoom(models.Model):
 	class Meta:
 		ordering = ('name',)
 
-class Building(models.Model):
+class Community(models.Model):
 	name = models.CharField(max_length=40)
 	locationId = models.CharField(max_length=10, blank=True)
-	laundryRooms = models.ManyToManyField(LaundryRoom)
+	laundryRooms = models.ManyToManyField(Building)
 
 	def __str__(self):
 		return self.name

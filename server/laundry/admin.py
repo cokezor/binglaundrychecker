@@ -1,8 +1,8 @@
 from django.contrib import admin
-from laundry.models import Building, LaundryRoom, Machine
+from laundry.models import Building, Community, Machine
 
 admin.site.register(Building)
-admin.site.register(LaundryRoom)
+admin.site.register(Community)
 admin.site.register(Machine)
 
 # Register your models here.
