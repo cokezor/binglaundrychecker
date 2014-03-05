@@ -12,6 +12,7 @@ class Machine(models.Model):
 
 class Building(models.Model):
 	name = models.CharField(max_length=40)
+	locationId = models.CharField(max_length=10, blank=True)
 	machines = models.ManyToManyField(Machine)
 
 	def __str__(self):
