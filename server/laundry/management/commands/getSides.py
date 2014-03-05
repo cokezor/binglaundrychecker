@@ -28,4 +28,4 @@ class Command(BaseCommand):
 				locationId = regex.search(item.attrib['href']).group()
 				side, created = Side.objects.get_or_create(name=item.text, locationId=locationId)
 				if created:
-					building.sides.add(side)
+					building.side_set.add(side)

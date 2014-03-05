@@ -29,4 +29,4 @@ class Command(BaseCommand):
 				building, created = Building.objects.get_or_create(name=item.text, locationId=locationId)
 
 				if created:
-					community.buildings.add(building)
+					community.building_set.add(building)
