@@ -6,10 +6,10 @@ class CommunitySerializer(serializers.ModelSerializer):
 		model = Community
 		fields = ('name',)
 
-class SideSerializer(serializers.HyperlinkedModelSerializer):
+class SideSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Side
-		fields = ('name',)
+		fields = ('name', 'washerTotal', 'washerAvail', 'dryerTotal', 'dryerAvail')
 
 class BuildingSerializer(serializers.ModelSerializer):
 	class Meta:

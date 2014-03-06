@@ -6,7 +6,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 router = routers.DefaultRouter()
-router.register(r'side', views.SideViewSet)
 
 urlpatterns = patterns('',
     # Examples:
