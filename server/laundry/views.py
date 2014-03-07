@@ -30,6 +30,8 @@ def get_laundry_status(request, name):
 	Get status of a building's laundry
 	"""
 	name = name.replace("_", " ")
+	if name == "Johnson":
+		name = "Johnson-Bing"
 	building = Building.objects.get(name=name)
 	sides = building.side_set.all()
 
@@ -42,7 +44,6 @@ def get_side_status(sides):
 		page = requests.get(MACHINESTATUS_BASE_URL + side.locationId)
 		tree = html.fromstring(page.text)
 
-		rows = tree.xpath('//tr[@class="even"] | //tr[@class="odd"]')
 		stats = tree.xpath('//script')[0].text
 		regex = re.compile('"((?:washers|dryers)\w+)"\).\w+\("(\d+)"\)')
 
@@ -55,9 +56,30 @@ def get_side_status(sides):
 				side.dryerAvail = int(status[1])
 			elif status[0] == 'dryersTotalCount':
 				side.dryerTotal = int(status[1])
+		
+		side.dryerInUse = 0
+		side.dryerTimes = ""
+		side.washerInUse = 0
+		side.washerTimes = ""
+
+		#if there are machines in use, we have to scrape the times
+		if side.dryerAvail != side.dryerTotal or side.washerAvail != side.washerTotal:
+			rows = tree.xpath('//tr[@class="even"] | //tr[@class="odd"]')
+			dryerTimes = []
+			washerTimes = []
+			for row in rows:
+				if row[3][0].text == "In Use":
+					if row[2].text == "Dryer":
+						side.dryerInUse += 1
+						dryerTimes.append(row[4].text)
+					else:
+						side.washerInUse += 1
+						washerTimes.append(row[4].text)
+
+			side.dryerTimes = dryerTimes
+			side.washerTimes = washerTimes
 
 		side.save()
-
 		"""
 		for row in rows:
 			machine_type, status, time = machine_info(row)
@@ -67,14 +89,6 @@ def get_side_status(sides):
 				if status == "Available":
 					washerAvail += 1
 		"""
-
-
-def machine_info(row):
-	machine_type = row[2].text
-	status = row[3][0].text
-	time = row[4].text
-
-	return (machine_type, status, time)
 
 def get_buildings(request, name):
 	"""
