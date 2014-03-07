@@ -26,15 +26,15 @@ class Side(models.Model):
 	locationId = models.CharField(max_length=10, blank=True)
 	building = models.ForeignKey(Building, null=True)
 
-	dryerTotal = models.IntegerField(blank=True)
-	dryerAvail = models.IntegerField(blank=True)
-	dryerTimes = models.CommaSeparatedIntegerField(max_length=20)
-	dryerInUse = models.IntegerField(blank=True)
+	dryerTotal = models.IntegerField(blank=True, null=True)
+	dryerAvail = models.IntegerField(blank=True, null=True)
+	dryerTimes = models.CommaSeparatedIntegerField(max_length=20, null=True)
+	dryerInUse = models.IntegerField(blank=True, null=True)
 
-	washerTotal = models.IntegerField(blank=True)
-	washerAvail = models.IntegerField(blank=True)
-	washerTimes = models.CommaSeparatedIntegerField(max_length=20)
-	washerInUse = models.IntegerField(blank=True)
+	washerTotal = models.IntegerField(blank=True, null=True)
+	washerAvail = models.IntegerField(blank=True, null=True)
+	washerTimes = models.CommaSeparatedIntegerField(max_length=20, null=True)
+	washerInUse = models.IntegerField(blank=True, null=True)
 	
 	def __str__(self):
 		return self.name
