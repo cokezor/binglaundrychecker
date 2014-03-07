@@ -27,6 +27,7 @@ class Command(BaseCommand):
 			for item in laundry_links:
 				locationId = regex.search(item.attrib['href']).group()
 				building, created = Building.objects.get_or_create(name=item.text, locationId=locationId)
+				print building
 
 				if created:
 					community.building_set.add(building)

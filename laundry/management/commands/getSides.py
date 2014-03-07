@@ -27,5 +27,6 @@ class Command(BaseCommand):
 			for item in laundry_links:
 				locationId = regex.search(item.attrib['href']).group()
 				side, created = Side.objects.get_or_create(name=item.text, locationId=locationId)
+				print side
 				if created:
 					building.side_set.add(side)

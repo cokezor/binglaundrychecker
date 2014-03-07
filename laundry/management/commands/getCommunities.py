@@ -24,3 +24,4 @@ class Command(BaseCommand):
 		for item in community_list:
 			locationId = regex.search(item.attrib['href']).group()
 			community, created = Community.objects.get_or_create(name=item.text, locationId=locationId)
+			print community
