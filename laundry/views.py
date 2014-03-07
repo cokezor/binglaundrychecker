@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from laundry.serializers import BuildingSerializer, CommunitySerializer, SideSerializer
@@ -25,6 +24,7 @@ class JSONResponse(HttpResponse):
 		kwargs['content_type'] = 'application/json'
 		super(JSONResponse, self).__init__(content, **kwargs)
 
+@api_view(['GET'])
 def get_laundry_status(request, name):
 	"""
 	Get status of a building's laundry
@@ -90,6 +90,7 @@ def get_side_status(sides):
 					washerAvail += 1
 		"""
 
+@api_view(['GET'])
 def get_buildings(request, name):
 	"""
 	Get all buildings for a community
@@ -100,6 +101,7 @@ def get_buildings(request, name):
 	serializer = BuildingSerializer(buildings, many=True)
 	return JSONResponse(serializer.data)
 
+@api_view(['GET'])
 def get_communities(request):
 	"""
 	Return all communities
