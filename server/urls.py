@@ -11,5 +11,4 @@ urlpatterns = patterns('',
 
     url(r'^', include('laundry.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include(router.urls)), 
 )
