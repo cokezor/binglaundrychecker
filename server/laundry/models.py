@@ -29,10 +29,12 @@ class Side(models.Model):
 	dryerTotal = models.IntegerField(blank=True)
 	dryerAvail = models.IntegerField(blank=True)
 	dryerTimes = models.CommaSeparatedIntegerField(max_length=20)
+	dryerInUse = models.IntegerField(blank=True)
 
 	washerTotal = models.IntegerField(blank=True)
 	washerAvail = models.IntegerField(blank=True)
 	washerTimes = models.CommaSeparatedIntegerField(max_length=20)
+	washerInUse = models.IntegerField(blank=True)
 	
 	def __str__(self):
 		return self.name
