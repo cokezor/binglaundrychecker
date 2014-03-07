@@ -1,11 +1,8 @@
 from django.conf.urls import patterns, include, url
-from rest_framework import routers
 from laundry import views
 
 from django.contrib import admin
 admin.autodiscover()
-
-router = routers.DefaultRouter()
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,4 +11,5 @@ urlpatterns = patterns('',
 
     url(r'^', include('laundry.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include(router.urls)), 
 )
