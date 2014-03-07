@@ -9,7 +9,7 @@ class CommunitySerializer(serializers.ModelSerializer):
 class SideSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Side
-		fields = ('name', 'washerTotal', 'washerAvail', 'washerInUse', 'dryerTotal', 'dryerAvail', 'dryerInUse')
+		fields = ('name', 'washerTotal', 'washerAvail', 'washerInUse', 'washerTimes', 'dryerTotal', 'dryerAvail', 'dryerInUse', 'washerTimes')
 
 class BuildingSerializer(serializers.ModelSerializer):
 	class Meta:
