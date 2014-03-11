@@ -80,7 +80,7 @@ def get_side_status(sides):
 			side.washerTimes = washerTimes
 
 		side.washerComplete = side.washerTotal - side.washerAvail - side.washerInUse
-		side.dryerComplete = side.dryerTotal - side.dryerTotal - side.dryerInUse
+		side.dryerComplete = side.dryerTotal - side.dryerAvail - side.dryerInUse
 
 		side.save()
 
