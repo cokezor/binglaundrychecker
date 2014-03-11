@@ -56,7 +56,7 @@ def get_side_status(sides):
 				side.dryerAvail = int(status[1])
 			elif status[0] == 'dryersTotalCount':
 				side.dryerTotal = int(status[1])
-		
+
 		side.dryerInUse = 0
 		side.dryerTimes = ""
 		side.washerInUse = 0
@@ -79,16 +79,10 @@ def get_side_status(sides):
 			side.dryerTimes = dryerTimes
 			side.washerTimes = washerTimes
 
-		side.save()
-		"""
-		for row in rows:
-			machine_type, status, time = machine_info(row)
-			if machine_type == "Washer":
-				washerTotal += 1
+		side.washerComplete = side.washerTotal - side.washerAvail - side.washerInUse
+		side.dryerComplete = side.dryerTotal - side.dryerTotal - side.dryerInUse
 
-				if status == "Available":
-					washerAvail += 1
-		"""
+		side.save()
 
 @api_view(['GET'])
 def get_buildings(request, name):
