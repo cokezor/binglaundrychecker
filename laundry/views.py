@@ -71,13 +71,13 @@ def get_side_status(sides):
 				if row[3][0].text == "In Use":
 					if row[2].text == "Dryer":
 						side.dryerInUse += 1
-						dryerTimes.append(row[4].text)
+						dryerTimes.append(int(row[4].text))
 					else:
 						side.washerInUse += 1
-						washerTimes.append(row[4].text)
+						washerTimes.append(int(row[4].text))
 
-			side.dryerTimes = sorted(dryerTimes)
-			side.washerTimes = sorted(washerTimes)
+			side.dryerTimes = [str(time) for time in sorted(dryerTimes)]
+			side.washerTimes = [str(time) for time in sorted(washerTimes)]
 
 		side.washerComplete = side.washerTotal - side.washerAvail - side.washerInUse
 		side.dryerComplete = side.dryerTotal - side.dryerAvail - side.dryerInUse
