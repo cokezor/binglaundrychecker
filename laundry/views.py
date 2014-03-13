@@ -10,6 +10,7 @@ from django.conf import settings
 import requests
 import re
 from lxml import html
+from datetime import datetime, timedelta
 
 
 
@@ -26,6 +27,7 @@ class JSONResponse(HttpResponse):
 
 @api_view(['GET'])
 def get_laundry_status(request, name):
+	print "I am running"
 	"""
 	Get status of a building's laundry
 	"""
@@ -35,7 +37,16 @@ def get_laundry_status(request, name):
 	building = Building.objects.get(name=name)
 	sides = building.side_set.all()
 
-	get_side_status(sides)
+	#10 second wait before scraping same building
+	if building.fetched == None or datetime.now() - building.fetched > timedelta(0,10,0):
+		building.fetched = datetime.now()
+		building.save()
+		get_side_status(sides)
+		print "scrape"
+	
+	else:
+		print "No scrape"
+
 	serializer = SideSerializer(sides, many=True)
 	return JSONResponse(serializer.data)
 

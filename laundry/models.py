@@ -14,6 +14,7 @@ class Building(models.Model):
 	name = models.CharField(max_length=100)
 	locationId = models.CharField(max_length=10, blank=True)
 	community = models.ForeignKey(Community, null=True)
+	fetched = models.DateTimeField(blank=True, null=True)
 
 	def __str__(self):
 		return self.name
