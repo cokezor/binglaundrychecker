@@ -12,8 +12,6 @@ import re
 from lxml import html
 from datetime import datetime, timedelta
 
-
-
 MACHINESTATUS_BASE_URL  = getattr(settings, "MACHINESTATUS_BASE_URL", None)
 
 class JSONResponse(HttpResponse):
@@ -27,7 +25,6 @@ class JSONResponse(HttpResponse):
 
 @api_view(['GET'])
 def get_laundry_status(request, name):
-	print "I am running"
 	"""
 	Get status of a building's laundry
 	"""
