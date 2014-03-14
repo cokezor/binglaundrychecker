@@ -29,13 +29,13 @@ class Side(models.Model):
 
 	dryerTotal = models.IntegerField(blank=True, null=True)
 	dryerAvail = models.IntegerField(blank=True, null=True)
-	dryerTimes = models.CommaSeparatedIntegerField(max_length=255, null=True)
+	dryerTimes = models.CharField(max_length=255, null=True)
 	dryerInUse = models.IntegerField(blank=True, null=True)
 	dryerComplete = models.IntegerField(blank=True, null=True)
 
 	washerTotal = models.IntegerField(blank=True, null=True)
 	washerAvail = models.IntegerField(blank=True, null=True)
-	washerTimes = models.CommaSeparatedIntegerField(max_length=255, null=True)
+	washerTimes = models.CharField(max_length=255, null=True)
 	washerInUse = models.IntegerField(blank=True, null=True)
 	washerComplete = models.IntegerField(blank=True, null=True)
 	
