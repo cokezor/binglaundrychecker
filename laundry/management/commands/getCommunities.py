@@ -4,12 +4,18 @@ import re
 from lxml import html
 from laundry.models import Community
 from django.conf import settings
+from datetime import datetime
 
 ESUDS_BING_URL = getattr(settings, "ESUDS_BING_URL", None)
+SCRAPE_DAY = getattr(settings, "SCRAPE_DAY", None)
 
 #custom command to scrape the communitys on a weekly(?) basis
 class Command(BaseCommand):
 	def handle(self, *args, **options):
+		if datetime.today().isoweekday() != SCRAPE_DAY:
+			print "NOT SCRAPE DAY"
+			return
+
 		#load the page
 		page = requests.get(ESUDS_BING_URL)
 

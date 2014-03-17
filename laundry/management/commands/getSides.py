@@ -4,12 +4,18 @@ import re
 from lxml import html
 from laundry.models import Building, Side
 from django.conf import settings
+from datetime import datetime
 
 ROOMSTATUS_BASE_URL = getattr(settings, "ROOMSTATUS_BASE_URL", None)
+SCRAPE_DAY = getattr(settings, "SCRAPE_DAY", None)
 
 #custom command that iterates through all of the communities and generates their buildings class Command(BaseCommand):
 class Command(BaseCommand):
 	def handle(self, *args, **options):
+		if datetime.today().isoweekday() != SCRAPE_DAY:
+			print "NOT SCRAPE DAY"
+			return
+
 		buildings = Building.objects.all()
 
 		for building in buildings:
