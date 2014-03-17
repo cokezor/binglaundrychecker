@@ -114,4 +114,4 @@ ROOMSTATUS_BASE_URL = 'http://binghamton-asi.esuds.net/RoomStatus/showRoomStatus
 ESUDS_BING_URL = 'http://binghamton-asi.esuds.net/RoomStatus/showRoomStatus.i?locationId=6788'
 MACHINESTATUS_BASE_URL = 'http://binghamton-asi.esuds.net/RoomStatus/machineStatus.i?bottomLocationId='
 
-SCRAPE_DAY = 1 #SATURDAY
+SCRAPE_DAY = 1 #MONDAY
